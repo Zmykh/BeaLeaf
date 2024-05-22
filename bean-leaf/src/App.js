@@ -1,7 +1,6 @@
 import { Provider } from "react-redux";
-import {store, persistor} from "./redux/store.ts"
+import {store} from "./redux/store.ts"
 import MainPage from "./components/mainPage.js";
-//qweqweqweqwe
 
 const App = () => {
   return (
