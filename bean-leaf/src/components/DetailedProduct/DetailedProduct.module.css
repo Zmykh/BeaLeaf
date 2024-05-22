@@ -1,0 +1,261 @@
+.productModal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+
+  border: 1px solid #e2e2e2;
+  font-family: Arial, Helvetica, sans-serif;
+  width: 1200px; 
+  z-index: 1000; 
+  border-radius: 5px;
+  overflow-y:auto;
+  -ms-overflow-style: none; 
+  scrollbar-width: none;
+  max-height: calc(100vh - 40px); /* Добавить этот стиль */
+}
+
+.productModalBackground {
+  backdrop-filter: blur(10px);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 100; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.detailedProductContainer {
+  display: flex;
+  justify-content: space-around;
+  padding: 20px;
+  border: 1px solid #e2e2e2;
+  border-radius: 5px;
+}
+
+.productImageContainer {
+  max-width: 550px;
+  max-height: 550px;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+.productImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.productInfoContainer {
+  width: 550px;
+  margin-left: 50px;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.quantityInput {
+  width: 50px;
+  margin-top: 15px;
+}
+
+.addToCartButton {
+  /* width: 10px; */
+  height: 50px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  color: white;
+  /* background-color: #4b7898; */
+  border: none;
+  border-radius: 180px;
+  cursor: pointer;
+}
+
+.productInfoContainer h1 {
+  font-size:36px;
+  margin-top: 0;
+}
+
+.productInfoContainer .prprice {
+  font-size:24px;
+  color: green;
+}
+
+.productInfoContainer .countr {
+  font-size:14px;
+  color:black;
+  border-bottom: 1px solid #808080;
+}
+
+.productInfoContainer .dat {
+  font-size:14px;
+  color: #808080;
+}
+
+.productInfoContainer .descript {
+  font-size: 14px;
+  color: #808080;
+  border-bottom: 1px solid #808080;
+}
+/* ...другие стили... */
+
+.productInfoContainer h1 {
+  font-size:36px;
+}
+
+.productInfoContainer .priceDetail {
+  font-size:24px;
+  color: green;
+}
+
+.productInfoContainer .countryDetail {
+  font-size:14px;
+  color:black;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #808080;
+}
+
+.productInfoContainer .dataDetail {
+  font-size:14px;
+  color: #808080;
+}
+
+.productInfoContainer .descriptionDetail {
+  font-size: 14px;
+  color: #808080;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #808080;
+}
+
+
+.cartActions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.quantityButton {
+  color: black;
+  border: none;
+  background-color: #eaf5e0;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.quantityDisplay {
+margin-top: auto;
+margin-bottom: auto;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.qnt{ 
+  padding: 4px;
+  border: 1px solid #808080;
+  border-radius: 180px;
+  display: flex;
+}
+/* ...другие стили... */
+
+.favouriteButton {
+  font-size: 16px;
+  color: black;
+  border: none;
+  background-color: #eaf5e0;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  font-size: 16px;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  /* margin-left: 10px; */
+}
+
+.cartActions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Add this line */
+  width: 100%; /* Make sure the container width is 100% */
+}
+
+.addToCartButton {
+  height: 50px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  color: white;
+  border: none;
+  border-radius: 180px;
+  cursor: pointer;
+  flex-grow: 1; /* Add this line */
+  text-align: center; /* To make sure the text remains in the center */
+}
+
+.quantityButton, .favouriteButton {
+  flex-shrink: 0; /* Prevent these buttons from shrinking */
+}
+.favouriteButtonActive {
+  background-color: rgb(146, 255, 132);
+  transition: background-color 0.3s ease;
+}
+/* ...существующие стили... */
+
+.reviewForm {
+  display: flex; /* Изменённый стиль */
+  justify-content: space-between; /* Изменённый стиль */
+  background-color: #f8f8f8;
+  padding: 20px;
+  border-radius: 5px;
+  align-items: center; /* Новый стиль */
+}
+
+.reviewForm textarea {
+  font-family: Arial, Helvetica, sans-serif;
+  flex-grow: 1; /* Новый стиль */
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  resize: none;
+  font-size: 14px;
+}
+
+.reviewForm button {
+  margin-left: 10px; /* Новый стиль */
+  color: #fff;
+  font-weight: 400;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  border: 1px solid transparent;
+  padding: 6px 12px;
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: 5px;
+  transition: all 0.2s ease-in-out;
+}
+.reviews{
+  margin-left: 20px;
+}
+.sendRev{
+  height: 55px;
+}
+.addButtonDisabled {
+  background-color: #a9a9a9;
+  cursor: not-allowed;
+}
+
+.quantityButtonDisabled {
+  background-color: #a9a9a9;
+  cursor: not-allowed;
+}

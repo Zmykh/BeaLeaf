@@ -1,0 +1,34 @@
+.order-component {
+  margin-top: 16px;
+  width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin: 16px;
+  padding: 20px;
+}
+
+.order-details {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.date-time-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.summ{
+  text-align: left;
+}
+button {
+  padding: 10px 20px;
+  
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+}
+

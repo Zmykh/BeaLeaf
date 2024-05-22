@@ -1,0 +1,17 @@
+.foot{
+    bottom: 0;  
+    font-family: Arial, Helvetica, sans-serif;
+    color: #ffffff;
+    background-color: #333333;
+    height: 5em;
+}
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+  }
+  
+  .grid-item {
+    padding: 10px;
+  }
+  

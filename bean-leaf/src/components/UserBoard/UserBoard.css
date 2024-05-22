@@ -1,0 +1,13 @@
+.BoardContainer {
+    font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+    padding: 1em;
+    height: 70vh;
+}
+.WindowContainer{
+    display: flex;
+    margin: auto;
+    margin-top: 0;
+    width: 80%;
+    border-radius: 5px;
+}

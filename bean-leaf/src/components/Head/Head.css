@@ -1,0 +1,80 @@
+.upper{
+    display: flex;
+  justify-content: space-between;
+  margin-bottom: 1em;
+}
+.head{
+    
+    padding: 0.5em;
+    font-family: Arial, Helvetica, sans-serif;
+    color: black;
+    font-size: 32px;
+    background-color: rgb(255, 255, 255);
+    height: 5em;
+}
+.head object{
+    overflow: auto; 
+    -ms-overflow-style: none; 
+    scrollbar-width: none; 
+}
+.head object::-webkit-scrollbar { 
+    width: 0; 
+    height: 0; 
+}
+
+
+.lowerHead{
+    padding: 0.5em;
+    font-family: Arial, Helvetica, sans-serif;
+    color: black;
+    font-size: 32px;
+    background-color: rgb(81, 183, 79);
+    height: 5em;
+}
+.search{
+    margin-left: auto;
+    margin-right: auto;
+    display: inline-block;
+
+}
+.searchInput{
+    width: 312px;
+    border: 0   ;
+    padding: 0.5em;
+    font-size: 20px;
+    border-color:#808080;
+    border-radius: 0;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    box-shadow: 2px 8px 16px 2px rgba(0,0,0,0.2);
+}
+.searchButton{
+    border: 0px;
+    width: 98px;
+    padding: 0.5em;
+    color: rgb(255, 255, 255);
+    background-color:rgb(81, 183, 79) ;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    border-radius: 0;
+    border-top-right-radius:5px;
+    border-bottom-right-radius:5px;
+    transition: background-color 0.5s ease;
+    box-shadow: 2px 8px 16px 2px rgba(0,0,0,0.2);   
+}
+.contacts{
+    border-radius: 5px;
+    border-color: rgb(161, 161, 161);
+    padding: 0.5em;
+    color: rgb(255, 255, 255);
+    background-color:rgb(81, 183, 79) ;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    transition: background-color 0.5s ease;
+}
+.contacts:hover{
+    background-color:rgb(55, 122, 54) ;
+}
+.searchButton:hover{
+    background-color:rgb(55, 122, 54) ;
+}

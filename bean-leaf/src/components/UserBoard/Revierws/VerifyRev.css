@@ -1,0 +1,48 @@
+.revCon {
+    width: 110%; /* Ширина блока */
+    margin: 20px auto; /* Центрирование блока */
+    padding: 20px; /* Внутренние отступы */
+    border: 1px solid #ccc; /* Рамка */
+    border-radius: 5px; /* Скругление углов */
+    max-height: auto;
+    
+  }
+  .scrollableTable {
+    overflow-y: auto;
+    max-height: 500px; 
+  }
+  .revCon h1 {
+    text-align: center; /* Заголовок по центру */
+    margin-bottom: 20px; /* Отступ снизу */
+  }
+  
+  .revCon table {
+    width: 100%; /* Ширина таблицы */
+    border-collapse: collapse; /* Убираем двойные границы */
+  }
+  
+  .revCon th, .revCon td {
+    padding: 10px; /* Отступы внутри ячеек */
+    text-align: left; /* Выравнивание текста */
+    border: 1px solid #ccc; /* Границы ячеек */
+  }
+  
+  .revCon th {
+    background-color: #f0f0f0; /* Фон заголовка */
+  }
+  
+  .prodImg {
+    width: 200px; /* Максимальная ширина изображения */
+    height: 200px; /* Автоматическая высота */
+    margin: auto;
+  }
+  .revCon button {
+    padding: 5px 10px; /* Отступы внутри кнопки */
+    margin: 0 5px; /* Отступы между кнопками */
+    background-color: #4CAF50; /* Фон кнопки */
+    color: white; /* Цвет текста */
+    border: none; /* Убираем рамку */
+    border-radius: 3px; /* Скругление углов */
+    cursor: pointer; /* Курсор при наведении */
+  }
+  

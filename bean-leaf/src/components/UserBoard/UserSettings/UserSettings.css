@@ -1,0 +1,43 @@
+/* UserSettings.css */
+
+.user-edit {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    border: 1px solid #ccc; /* Рамка */
+    margin-left: auto;
+    margin-right: auto; 
+    padding: 1em;
+  }
+  
+  .user-edit div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .user-edit label {
+    flex: 1;
+  }
+  
+  .user-edit input {
+    flex: 2;
+    padding: 5px;
+  }
+  
+  .user-edit button {
+    padding: 10px;
+    background-color:rgb(81, 183, 79);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-bottom: 10px;
+  }
+  
+  .user-edit button:hover {
+    background-color: rgb(55, 122, 54);
+  }
+  

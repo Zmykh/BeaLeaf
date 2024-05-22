@@ -1,0 +1,12 @@
+.cart-container {
+    border: 1px solid #ccc;
+    padding: 16px;
+    margin: 16px;
+  }
+.items-row{
+    max-height: 460px;
+    overflow-y: auto;
+}
+  
+  /* Дополнительные стили для оформления по желанию */
+  

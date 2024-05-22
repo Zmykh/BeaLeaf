@@ -1,0 +1,79 @@
+.product-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    border: 1px solid #e2e2e2;
+    padding: 20px;
+    width: 900px; 
+    z-index: 1000; 
+    border-radius: 5px;
+  }
+  
+  .product-modal-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Чтобы создать полупрозрачный эффект фона */
+    z-index: 100; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .user-card {
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .user-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .user-avatar {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-right: 20px;
+  }
+  
+  .user-details h3 {
+    margin: 0;
+  }
+  
+  .user-role {
+    background-color: #007bff;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 3px;
+    font-size: 12px;
+  }
+  
+  .user-body ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .user-body li {
+    margin-bottom: 10px;
+  }
+  
+  .user-body i {
+    margin-right: 10px;
+  }
+  .user-info-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr; /* Ширина колонок */
+    gap: 10px; /* Расстояние между колонками */
+  }
+  
+  .user-info-labels p,
+  .user-info-data p {
+    margin: 5px 0; /* Отступы между элементами */
+  }  
