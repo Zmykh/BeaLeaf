@@ -183,6 +183,7 @@ const AddProduct = ({ fetchProducts = { fetchProducts } }) => {
             type="text"
             placeholder="Описание"
             onChange={handleChange}
+            maxLength="250"
             required
           />
 

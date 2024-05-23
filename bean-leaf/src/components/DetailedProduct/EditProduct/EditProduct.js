@@ -1,8 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import "./EditProduct.css";
+import styles from "./EditProduct.module.css";
 import AddSlider from "../../UserBoard/AddProduct/Slider";
-const EditProduct = ({ edproduct, fetchProducts }) => {
+const EditProduct = ({ edproduct, fetchProducts, hideDetailedProduct }) => {
   console.log(edproduct);
   const [product, setProduct] = useState({
     name: edproduct.name,
@@ -58,7 +58,21 @@ const EditProduct = ({ edproduct, fetchProducts }) => {
       }
     }
   };
-
+  const DeleteItem = async (e) => {
+    try {
+      const response = await axios.delete(
+        `http://localhost:5000/products/${edproduct.id}`
+      );
+      if (response.status === 200) {
+        fetchProducts()
+        hideDetailedProduct()
+      } else {
+        console.error('Ошибка удаления товара, статус:', response.status);
+      }
+    } catch (error) {
+      console.error('Произошла ошибка при удалении товара:', error);
+    }
+  };
   const handleChange = (e) => {
     setProduct({ ...product, [e.target.name]: e.target.value });
   };
@@ -142,10 +156,10 @@ const EditProduct = ({ edproduct, fetchProducts }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="createProduct">
+    <form onSubmit={handleSubmit} className={styles.createProduct}>
       <h1>Редактировать товар</h1>
-      <div className="form-container">
-        <div className="image-container">
+      <div className={styles.formContainer}>
+        <div className={styles.imageContainer}>
           <input
             type="file"
             id="file-input"
@@ -177,11 +191,11 @@ const EditProduct = ({ edproduct, fetchProducts }) => {
             />
           )}
         </div>
-        <div className="info-container">
+        <div className={styles.infoContainer}>
           <input
             value={product.name}
             name="name"
-            className="name"
+            className={styles.name}
             type="text"
             placeholder="Название товара"
             onChange={handleChange}
@@ -190,19 +204,20 @@ const EditProduct = ({ edproduct, fetchProducts }) => {
           <textarea
             value={product.description}
             name="description"
-            className="description"
+            className={styles.description}
             type="text"
             placeholder="Описание"
             onChange={handleChange}
+            maxLength="250"
             required
           />
 
-          <div className="column-container">
-            <div className="column">
+          <div className={styles.columnContainer}>
+            <div className={styles.column}>
               <select
                 value={product.category}
                 name="category"
-                className="category"
+                className={styles.category}
                 onChange={parentCategoryHandler}
               >
                 <option disabled selected="selected">
@@ -234,13 +249,17 @@ const EditProduct = ({ edproduct, fetchProducts }) => {
                 onChange={handleChange}
                 required
               />
+              <br></br>
+              <button type="submit" className={styles.create}>
+            Сохранить изменения
+          </button>
             </div>
-            <div className="column">
+            <div className={styles.column}>
               {isTea(parentCategory) ? (
                 <select
                   value={product.categoryChild}
                   name="categorychild"
-                  className="category"
+                  className={styles.category}
                   onChange={childCategoryHandler}
                   required
                 >
@@ -261,7 +280,7 @@ const EditProduct = ({ edproduct, fetchProducts }) => {
                 <select
                   value={product.categoryChild}
                   name="categorychild"
-                  className="category"
+                  className={styles.category}
                   onChange={childCategoryHandler}
                   required
                 >
@@ -279,7 +298,7 @@ const EditProduct = ({ edproduct, fetchProducts }) => {
                 <select
                   value={product.categoryChild}
                   name="categorychild"
-                  className="category"
+                  className={styles.category}
                   onChange={childCategoryHandler}
                   required
                 >
@@ -315,11 +334,13 @@ const EditProduct = ({ edproduct, fetchProducts }) => {
                 step={0.01}
                 required
               />
-            </div>
+            <br></br>
+            <button className={styles.create} onClick={()=> DeleteItem(edproduct.id)}>
+            Удалить товар
+          </button></div>
           </div>
-          <button type="submit" className="create">
-            Сохранить изменения
-          </button>
+          
+          
         </div>
       </div>
     </form>

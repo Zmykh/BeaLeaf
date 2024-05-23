@@ -88,7 +88,7 @@ const DetailedProduct = ({
       />
       <div className={styles.productModal}>
         {openEdidMenu ? (
-          <EditProduct edproduct={product} fetchProducts={fetchProducts} />
+          <EditProduct edproduct={product} fetchProducts={fetchProducts} hideDetailedProduct={hideDetailedProduct}/>
         ) : (
           <>
             <div className={styles.detailedProductContainer}>
@@ -182,6 +182,7 @@ const DetailedProduct = ({
                   value={reviewText}
                 />
                 <button type="submit" className ={styles.sendRev}>Отправить отзыв</button>
+                
               </form>
             </div>
             <div className={styles.reviews}>

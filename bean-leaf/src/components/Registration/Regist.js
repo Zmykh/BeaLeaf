@@ -50,7 +50,7 @@ const Regist = ({ toggleAuth, onResponseReceived }) => {
                 <input type="password" placeholder="Пароль" value={password} onChange={handlePasswordChange}></input>
                 <input type="password" placeholder="Повторите пароль" value={confirmPassword} onChange={handleConfirmPasswordChange}></input>
                 <button type="submit">Зарегистрироваться</button>
-                <p onClick={toggleAuth}>или <b>Войти в аккаунт</b></p>
+                <p className='labels' onClick={toggleAuth}>или <b>Войти в аккаунт</b></p>
             </form>
         </div>
     );
