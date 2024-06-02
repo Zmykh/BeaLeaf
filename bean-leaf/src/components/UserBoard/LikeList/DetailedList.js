@@ -12,8 +12,8 @@ const DetailedList = ({
   const itemsIn = likeList.items;
 
   return (
-    <div className="cart-container">
-      <h2>Список желаемого</h2>
+    <div className="list-container">
+      <h2>Список избранных товаров</h2>
       {itemsIn.length === 0 ? (
         <h2>Тут пока ничего</h2>
       ) : (

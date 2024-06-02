@@ -11,7 +11,7 @@ const UserDetails= ({selectedUser, hideDetailedUser})=>{
         onClick={hideDetailedUser}
         className="product-modal-background"
       ></div>
-      <div className="product-modal">
+      <div className="user-modal">
       <div className="user-card">
       <div className="user-info-grid">
         <div className="user-info-labels">
@@ -21,21 +21,15 @@ const UserDetails= ({selectedUser, hideDetailedUser})=>{
           <p>Адрес:</p>
           <p>Роль:</p>
           <p>Создан:</p>
-          {/* {selectedUser.updatedAt && <p>Обновлен:</p>} */}
+         
         </div>
         <div className="user-info-data">
           <p>{selectedUser.name}</p>
           <p>{selectedUser.email}</p>
           <p>{selectedUser.telNumber}</p>
           <p>{selectedUser.adress}</p>
-          <select value={selectedUser.admin ? "admin" : "user"} >
-            <option value="user">Пользователь</option>
-            <option value="admin">Администратор</option>
-          </select>
+          {selectedUser.admin ? (<p>Администратор</p>):(<p>Пользователь</p>)}
           <p>{new Date(selectedUser.createdAt).toLocaleDateString()}</p>
-          {/* {selectedUser.updatedAt && (
-            // <p>{new Date(selectedUser.updatedAt).toLocaleDateString()}</p>
-          )} */}
         </div>
       </div>
     </div>

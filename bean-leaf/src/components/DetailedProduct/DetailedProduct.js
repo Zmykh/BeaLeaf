@@ -3,7 +3,7 @@ import Review from "./Review/Review";
 import EditProduct from "./EditProduct/EditProduct";
 import styles from "./DetailedProduct.module.css";
 import ImageSlider from "./ImageSlider";
-
+import EditIcon from "./pencil-svgrepo-com.svg"
 const DetailedProduct = ({
   product,
   hideDetailedProduct,
@@ -27,10 +27,12 @@ const DetailedProduct = ({
   const openEditMenuHandler = () => {
     setOpenEdidMenu(!openEdidMenu);
   };
-
+  const handleCloseEdit = () =>{
+    setOpenEdidMenu(false)
+  }
   useEffect(() => {
     setIsFavourite(
-      likeList.items.some((item) => item.productId === product.id)
+      likeList && likeList.items && likeList.items.some((item) => item.productId === product.id)
     );
     GetReviews(product.id);
     Reviews = Reviews.filter((review) => review.verified === false);
@@ -86,16 +88,20 @@ const DetailedProduct = ({
         className={styles.productModalBackground}
         onClick={hideDetailedProduct}
       />
-      <div className={styles.productModal}>
-        {openEdidMenu ? (
-          <EditProduct edproduct={product} fetchProducts={fetchProducts} hideDetailedProduct={hideDetailedProduct}/>
+       {openEdidMenu ? (
+          <EditProduct edproduct={product} fetchProducts={fetchProducts} hideDetailedProduct={hideDetailedProduct} handleCloseEdit={handleCloseEdit}/>
         ) : (
           <>
+      <div className={styles.productModal}>
             <div className={styles.detailedProductContainer}>
               <div className={styles.productImageContainer}>
                 <ImageSlider images={product.imageUrl} />
               </div>
               <div className={styles.productInfoContainer}>
+                {CurentUser.admin?(<button onClick={openEditMenuHandler} className={styles.EditBtn}>
+                 <img className={styles.edIcon} src={EditIcon} alt="Edit" />
+                </button>):(null)}
+              
                 <h1>{product.name}</h1>
                 <div
                   style={{ display: "flex", justifyContent: "space-between" }}
@@ -144,14 +150,25 @@ const DetailedProduct = ({
                   >
                     В корзину
                   </button>
-                  <button
+                  {CurentUser.id === null?(<button 
+                    disabled
+                    onClick={handleToggleFavourites}
+                    className={`${styles.favouriteButton}
+                     ${
+                      isFavourite ? styles.favouriteButtonActive : ""
+                    }`}
+                  >
+                    ♡
+                  </button>):(<button
                     onClick={handleToggleFavourites}
                     className={`${styles.favouriteButton} ${
                       isFavourite ? styles.favouriteButtonActive : ""
                     }`}
                   >
                     ♡
-                  </button>
+                  </button>)}
+                  
+                  
                 </div>
                 <div
                   style={{ display: "flex", justifyContent: "space-between" }}
@@ -191,9 +208,8 @@ const DetailedProduct = ({
                 <Review key={index} review={review} />
               ))}
             </div>
-          </>
-        )}
       </div>
+      </>)}
     </div>
   );
 };

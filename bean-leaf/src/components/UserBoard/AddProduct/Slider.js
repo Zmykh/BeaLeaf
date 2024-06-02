@@ -10,6 +10,8 @@ const Image = styled.img`
 `;
 
 const MainContent = styled.div`
+height: 400px;
+  width: 400px;
   display: flex;
   align-items: flex-start;
 `;

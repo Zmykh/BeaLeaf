@@ -47,8 +47,8 @@ const Regist = ({ toggleAuth, onResponseReceived }) => {
             <form onSubmit={handleSubmit}>
                 <h2>Регистрация</h2>
                 <input type="email" placeholder="Email" value={email} onChange={handleEmailChange}></input>
-                <input type="password" placeholder="Пароль" value={password} onChange={handlePasswordChange}></input>
-                <input type="password" placeholder="Повторите пароль" value={confirmPassword} onChange={handleConfirmPasswordChange}></input>
+                <input type="password" placeholder="Пароль" value={password} onChange={handlePasswordChange} minLength={6}></input>
+                <input type="password" placeholder="Повторите пароль" value={confirmPassword} onChange={handleConfirmPasswordChange} minLength={6}></input>
                 <button type="submit">Зарегистрироваться</button>
                 <p className='labels' onClick={toggleAuth}>или <b>Войти в аккаунт</b></p>
             </form>

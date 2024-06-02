@@ -21,6 +21,22 @@
   height: 400px; 
   object-fit: cover; 
 }
+.productModal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  border: 1px solid #e2e2e2;
+  font-family: Arial, Helvetica, sans-serif;
+  width: 950px; 
+  z-index: 1000; 
+  border-radius: 5px;
+  /* overflow-y:auto;
+  -ms-overflow-style: none; 
+  scrollbar-width: none;
+  max-height: calc(100vh - 40px); Добавить этот стиль */
+}
 .imageContainer {
   width: 400px; /* Фиксированная ширина */
   height: 400px; /* Фиксированная высота */
@@ -84,4 +100,13 @@ width: 100%;
 }
 .create{
   width: 100%;
+}
+.EditBtn{
+  align-self: flex-end;
+  background-color: #80808000;
+  position: absolute;
+}
+.edIcon{
+  width: 30px;
+  height: 30px;
 }

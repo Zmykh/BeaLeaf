@@ -17,6 +17,7 @@
   }
   
   .revCon table {
+    margin-top: 15px;
     width: 100%; /* Ширина таблицы */
     border-collapse: collapse; /* Убираем двойные границы */
   }

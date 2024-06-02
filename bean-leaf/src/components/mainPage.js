@@ -25,6 +25,7 @@ const MainPage = () => {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [likeList, setLikeList] = useState([]);
   const [priceRange, setPriceRange] =useState({})
+  const [filters, setFilters] =useState()
   const getOrCreateLikeList = async (userId) => {
     if (userId) {
       try {
@@ -107,6 +108,8 @@ const MainPage = () => {
     }
   };
   const updateDisplayProducts = async (sortSettings) => {
+    setFilters(sortSettings)
+    console.log(sortSettings)
     try {
       let updatedProducts = productsList;
   
@@ -122,21 +125,35 @@ const MainPage = () => {
         updatedProducts = updatedProducts.filter((product) => product.price >= sortSettings.filterRange.min && product.price <= sortSettings.filterRange.max);
       }
   
-      if (sortSettings.nameSortMethod === 'A-z') {
-        updatedProducts = updatedProducts.sort((a, b) => a.name.localeCompare(b.name));
-      } else if (sortSettings.nameSortMethod === 'Z-a') {
-        updatedProducts = updatedProducts.sort((a, b) => b.name.localeCompare(a.name));
+      if (sortSettings.selectedSortMethod !== 'default') {
+        // If price is selected for sorting
+        if (sortSettings.selectedOption === 'price') {
+          updatedProducts = updatedProducts.sort((a, b) => {
+            if (sortSettings.selectedSortMethod === "priceUp") {
+                return a.price - b.price;
+            } else if (sortSettings.selectedSortMethod === "priceDown") {
+                return b.price - a.price;
+            } 
+            return 0; // return as it is, if for some reason none of the conditions are met, i.e., sortMethod is not 'priceUp' or 'priceDown'
+          });
+        }
+        
+        // If name is selected for sorting
+        else if (sortSettings.selectedOption === 'name') {
+          updatedProducts = updatedProducts.sort((a, b) => {
+            if (sortSettings.selectedSortMethod === "A-z") {
+                return a.name.localeCompare(b.name);
+            } else if (sortSettings.selectedSortMethod === "Z-a") {
+                return b.name.localeCompare(a.name);
+            }
+            return 0; // return as it is, if for some reason none of the conditions are met, i.e., sortMethod is not 'A-z' or 'Z-a'
+          });
+        }
       }
   
-      if (sortSettings.priceSortMethod === 'priceUp') {
-        updatedProducts = updatedProducts.sort((a, b) => a.price - b.price);
-      } else if (sortSettings.priceSortMethod === 'priceDown') {
-        updatedProducts = updatedProducts.sort((a, b) => b.price - a.price);
-      }
-      
       setDisplayProducts(updatedProducts);
     } catch (error) {
-      console.error("Error fetching products:", error);
+      console.error("Error while sorting products:", error);
     }
   }
   useEffect(() => {
@@ -167,7 +184,7 @@ const MainPage = () => {
     try {
       const response = await axios.get("http://localhost:5000/products");
       setDisplayProducts(response.data);
-      setProductsList(response.data);
+      setProductsList(response.data);updateDisplayProducts(filters)
       console.log(response.data)
       setPriceRange(findMinMaxPrice(response.data)) // Используйте setPriceRange здесь
       console.log(priceRange)

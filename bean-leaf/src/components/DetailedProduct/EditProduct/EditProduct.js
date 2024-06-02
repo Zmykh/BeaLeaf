@@ -2,7 +2,13 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import styles from "./EditProduct.module.css";
 import AddSlider from "../../UserBoard/AddProduct/Slider";
-const EditProduct = ({ edproduct, fetchProducts, hideDetailedProduct }) => {
+import EditIcon from "../pencil-svgrepo-com.svg";
+const EditProduct = ({
+  edproduct,
+  fetchProducts,
+  hideDetailedProduct,
+  handleCloseEdit
+}) => {
   console.log(edproduct);
   const [product, setProduct] = useState({
     name: edproduct.name,
@@ -54,6 +60,7 @@ const EditProduct = ({ edproduct, fetchProducts, hideDetailedProduct }) => {
           product
         );
         fetchProducts();
+        handleCloseEdit()
         console.log(response.data);
       }
     }
@@ -64,13 +71,13 @@ const EditProduct = ({ edproduct, fetchProducts, hideDetailedProduct }) => {
         `http://localhost:5000/products/${edproduct.id}`
       );
       if (response.status === 200) {
-        fetchProducts()
-        hideDetailedProduct()
+        fetchProducts();
+        hideDetailedProduct();
       } else {
-        console.error('Ошибка удаления товара, статус:', response.status);
+        console.error("Ошибка удаления товара, статус:", response.status);
       }
     } catch (error) {
-      console.error('Произошла ошибка при удалении товара:', error);
+      console.error("Произошла ошибка при удалении товара:", error);
     }
   };
   const handleChange = (e) => {
@@ -156,194 +163,195 @@ const EditProduct = ({ edproduct, fetchProducts, hideDetailedProduct }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className={styles.createProduct}>
-      <h1>Редактировать товар</h1>
-      <div className={styles.formContainer}>
-        <div className={styles.imageContainer}>
-          <input
-            type="file"
-            id="file-input"
-            name="image"
-            multiple
-            hidden
-            onChange={handleImageSelect}
-          />
-          {currentImageUrls.length ? (
-            <>
-              <AddSlider
-                images={currentImageUrls}
-                onSliderClick={handleInputClick}
-                onSliderDrop={handleDrop}
-                onSliderDragOver={handleDragOver}
-                onSliderDragEnter={handleDragEnter}
-                handleDelete={handleDelete}
-              />
-            </>
-          ) : (
-            <img
-              className="img-input"
-              onClick={handleInputClick}
-              onDrop={handleDrop}
-              onDragOver={handleDragOver}
-              onDragEnter={handleDragEnter}
-              src="/images/placeholders/image.png"
-              alt="placeholder"
+    <div className={styles.productModal}>
+      <form onSubmit={handleSubmit} className={styles.createProduct}>
+        <h1>Редактировать товар</h1>
+        {/* <button className={styles.EditBtn}>
+          <img className={styles.edIcon} src={EditIcon} alt="Edit"/>
+        </button> */}
+        <div className={styles.formContainer}>
+          <div className={styles.imageContainer}>
+            <input
+              type="file"
+              id="file-input"
+              name="image"
+              multiple
+              hidden
+              onChange={handleImageSelect}
             />
-          )}
-        </div>
-        <div className={styles.infoContainer}>
-          <input
-            value={product.name}
-            name="name"
-            className={styles.name}
-            type="text"
-            placeholder="Название товара"
-            onChange={handleChange}
-            required
-          />
-          <textarea
-            value={product.description}
-            name="description"
-            className={styles.description}
-            type="text"
-            placeholder="Описание"
-            onChange={handleChange}
-            maxLength="250"
-            required
-          />
-
-          <div className={styles.columnContainer}>
-            <div className={styles.column}>
-              <select
-                value={product.category}
-                name="category"
-                className={styles.category}
-                onChange={parentCategoryHandler}
-              >
-                <option disabled selected="selected">
-                  Категория товара
-                </option>
-                <option value="Чай">Чай</option>
-                <option value="Кофе">Кофе</option>
-                <option value="Атрибутика">Атрибутика</option>
-              </select>
-              <br></br>
-              <label>Страна производства</label>
-              <br></br>
-              <input
-                value={product.country}
-                name="country"
-                type="text"
-                placeholder="Страна производства"
-                onChange={handleChange}
-                required
+            {currentImageUrls.length ? (
+              <>
+                <AddSlider
+                  images={currentImageUrls}
+                  onSliderClick={handleInputClick}
+                  onSliderDrop={handleDrop}
+                  onSliderDragOver={handleDragOver}
+                  onSliderDragEnter={handleDragEnter}
+                  handleDelete={handleDelete}
+                />
+              </>
+            ) : (
+              <img
+                className="img-input"
+                onClick={handleInputClick}
+                onDrop={handleDrop}
+                onDragOver={handleDragOver}
+                onDragEnter={handleDragEnter}
+                src="/images/placeholders/image.png"
+                alt="placeholder"
               />
-              <br></br>
-              <label>Наличие</label>
-              <br></br>
-              <input
-                value={product.availability}
-                name="availability"
-                type="number"
-                placeholder="Наличие на складе"
-                onChange={handleChange}
-                required
-              />
-              <br></br>
-              <button type="submit" className={styles.create}>
-            Сохранить изменения
-          </button>
-            </div>
-            <div className={styles.column}>
-              {isTea(parentCategory) ? (
-                <select
-                  value={product.categoryChild}
-                  name="categorychild"
-                  className={styles.category}
-                  onChange={childCategoryHandler}
-                  required
-                >
-                  <option disabled >
-                    Вид чая
-                  </option>
-                  <option value="Черный">Черный</option>
-                  <option value="Зеленый">Зеленый</option>
-                  <option value="Шу Пуэр">Шу Пуэр</option>
-                  <option value="Улун">Улун</option>
-                  <option value="Красный">Красный</option>
-                  <option value="Белый">Белый</option>
-                  <option value="Травяной">Травяной</option>
-                </select>
-              ) : null}
-
-              {isCoffe(parentCategory) ? (
-                <select
-                  value={product.categoryChild}
-                  name="categorychild"
-                  className={styles.category}
-                  onChange={childCategoryHandler}
-                  required
-                >
-                  <option disabled  >
-                    Вид Зерен
-                  </option>
-                  <option value="Арабика">Арабика</option>
-                  <option value="Робуста">Робуста</option>
-                  <option value="Либерика">Либерика</option>
-                  <option value="Эксцельеза">Эксцельеза</option>
-                </select>
-              ) : null}
-
-              {isAttr(parentCategory) ? (
-                <select
-                  value={product.categoryChild}
-                  name="categorychild"
-                  className={styles.category}
-                  onChange={childCategoryHandler}
-                  required
-                >
-                  <option disabled  >
-                    Вид атрибута
-                  </option>
-                  <option value="Чайный наор">Чайный набор</option>
-                  <option value="Посуда для чая">Посуда для чая</option>
-                  <option value="Посуда для кофе">Посуда для кофе</option>
-                  <option value="Кофемашина">Бытовая техника</option>
-                </select>
-              ) : null}
-              <br></br>
-              <label>Вес</label>
-              <br></br>
-              <input
-                value={product.quantity}
-                name="quantity"
-                type="number"
-                placeholder="Вес"
-                onChange={handleChange}
-                required
-              />
-              <br></br>
-              <label>Цена</label>
-              <br></br>
-              <input
-                value={product.price}
-                name="price"
-                type="number"
-                placeholder="Цена"
-                onChange={handleChange}
-                step={0.01}
-                required
-              />
-            <br></br>
-            <button className={styles.create} onClick={()=> DeleteItem(edproduct.id)}>
-            Удалить товар
-          </button></div>
+            )}
           </div>
-          
-          
+          <div className={styles.infoContainer}>
+            <input
+              value={product.name}
+              name="name"
+              className={styles.name}
+              type="text"
+              placeholder="Название товара"
+              onChange={handleChange}
+              required
+            />
+            <textarea
+              value={product.description}
+              name="description"
+              className={styles.description}
+              type="text"
+              placeholder="Описание"
+              onChange={handleChange}
+              maxLength="250"
+              required
+            />
+
+            <div className={styles.columnContainer}>
+              <div className={styles.column}>
+                <select
+                  value={product.category}
+                  name="category"
+                  className={styles.category}
+                  onChange={parentCategoryHandler}
+                >
+                  <option disabled selected="selected">
+                    Категория товара
+                  </option>
+                  <option value="Чай">Чай</option>
+                  <option value="Кофе">Кофе</option>
+                  <option value="Атрибутика">Атрибутика</option>
+                </select>
+                <br></br>
+                <label>Страна производства</label>
+                <br></br>
+                <input
+                  value={product.country}
+                  name="country"
+                  type="text"
+                  placeholder="Страна производства"
+                  onChange={handleChange}
+                  required
+                />
+                <br></br>
+                <label>Наличие</label>
+                <br></br>
+                <input
+                  value={product.availability}
+                  name="availability"
+                  type="number"
+                  placeholder="Наличие на складе"
+                  onChange={handleChange}
+                  required
+                />
+                <br></br>
+                <button type="submit" onClick={handleSubmit} className={styles.create}>
+                  Сохранить изменения
+                </button>
+              </div>
+              <div className={styles.column}>
+                {isTea(parentCategory) ? (
+                  <select
+                    value={product.categoryChild}
+                    name="categorychild"
+                    className={styles.category}
+                    onChange={childCategoryHandler}
+                    required
+                  >
+                    <option disabled>Вид чая</option>
+                    <option value="Черный">Черный</option>
+                    <option value="Зеленый">Зеленый</option>
+                    <option value="Шу Пуэр">Шу Пуэр</option>
+                    <option value="Улун">Улун</option>
+                    <option value="Красный">Красный</option>
+                    <option value="Белый">Белый</option>
+                    <option value="Травяной">Травяной</option>
+                  </select>
+                ) : null}
+
+                {isCoffe(parentCategory) ? (
+                  <select
+                    value={product.categoryChild}
+                    name="categorychild"
+                    className={styles.category}
+                    onChange={childCategoryHandler}
+                    required
+                  >
+                    <option disabled>Вид Зерен</option>
+                    <option value="Арабика">Арабика</option>
+                    <option value="Робуста">Робуста</option>
+                    <option value="Либерика">Либерика</option>
+                    <option value="Эксцельеза">Эксцельеза</option>
+                  </select>
+                ) : null}
+
+                {isAttr(parentCategory) ? (
+                  <select
+                    value={product.categoryChild}
+                    name="categorychild"
+                    className={styles.category}
+                    onChange={childCategoryHandler}
+                    required
+                  >
+                    <option disabled>Вид атрибута</option>
+                    <option value="Чайный наор">Чайный набор</option>
+                    <option value="Посуда для чая">Посуда для чая</option>
+                    <option value="Посуда для кофе">Посуда для кофе</option>
+                    <option value="Кофемашина">Бытовая техника</option>
+                  </select>
+                ) : null}
+                <br></br>
+                <label>Вес</label>
+                <br></br>
+                <input
+                  value={product.quantity}
+                  name="quantity"
+                  type="number"
+                  placeholder="Вес"
+                  onChange={handleChange}
+                  required
+                />
+                <br></br>
+                <label>Цена</label>
+                <br></br>
+                <input
+                  value={product.price}
+                  name="price"
+                  type="number"
+                  placeholder="Цена"
+                  onChange={handleChange}
+                  step={0.01}
+                  required
+                />
+                <br></br>
+                <button
+                  className={styles.create}
+                  onClick={() => DeleteItem(edproduct.id)}
+                >
+                  Удалить товар
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-    </form>
+      </form>
+    </div>
   );
 };
 export default EditProduct;

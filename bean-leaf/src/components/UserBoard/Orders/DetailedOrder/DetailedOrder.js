@@ -122,7 +122,7 @@ const timeString = selectedOrder.deliveryTime; // Время: "02:58:00"
                         />
                       </td>
                       <td>{item.name}</td>
-                      <td>{item.price}</td>
+                      <td>{Number(item.price).toFixed}</td>
                       <td>{item.quantityInOrder}</td>
                     </tr>
                   ))}
@@ -139,7 +139,7 @@ const timeString = selectedOrder.deliveryTime; // Время: "02:58:00"
               Дата доставки: {formattedDate}
             </p>
 
-            <p>Сумма: {selectedOrder.total}</p>
+            <p>Сумма: {Number(selectedOrder.total).toFixed(2)}</p>
             {forAdmin? (
             <p>Статус: 
             <select value={status} onChange={handleStatusChange}>

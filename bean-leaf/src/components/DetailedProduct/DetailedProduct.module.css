@@ -28,8 +28,17 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 999;
 }
-
+.EditBtn{
+  align-self: flex-end;
+  background-color: #80808000;
+  position: absolute;
+}
+.edIcon{
+  width: 30px;
+  height: 30px;
+}
 .detailedProductContainer {
   display: flex;
   justify-content: space-around;

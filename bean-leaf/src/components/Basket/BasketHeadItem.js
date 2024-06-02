@@ -29,7 +29,7 @@ const BasketHeadItem = ({productBasket, removeItem, updateQuantity, item, produc
                 <p>{product.name}</p>
                 <div className="quantityAndPrice">
                     <input type="number" step={1} value={item.quantity} onChange={handleQuantityChange}></input>
-                    <p>{item.quantity*product.price} BYN</p>
+                    <p>{(item.quantity * product.price).toFixed(2)} BYN</p>
                     <button onClick={showDetailedProductHandler}>К товару</button>
                 </div>
             </div>

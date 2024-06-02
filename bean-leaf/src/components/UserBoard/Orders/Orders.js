@@ -127,7 +127,7 @@ const Orders = ({CurentUser , forAdmin}) => {
               <tr key={order.id} onClick={() =>showDetailedOrder(order.id)} className="order-line" data-tooltip-id="my-tooltip-1" style={{}}>
                 <td>{order.id}</td>
                 <td>{order.userName}</td>
-                <td>{order.total}</td>
+                <td>{Number(order.total).toFixed(2)}</td>
                 <td>{order.status}</td>
               </tr>
             ))}

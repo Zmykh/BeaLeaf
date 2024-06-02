@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import "./CreateOrder.css";
 import axios from "axios";
 import ValidationTooltip from "../../../ModalMessage/ModalMessage";
-import InputMask from 'react-input-mask';
+import InputMask from "react-input-mask";
 function CreateOrder({
   CurentUser,
   productBasket,
@@ -10,9 +10,13 @@ function CreateOrder({
   setProductBasket,
 }) {
   const [deliveryDate, setDeliveryDate] = useState("");
-  const [deliveryTime, setDeliveryTime] = useState("");
-  const [deliveryAddress, setDeliveryAddress] = useState(CurentUser.adress || "");
-  const [deliveryContact, setDeliveryContact] = useState(CurentUser.telNumber || "");
+  const [deliveryTime, setDeliveryTime] = useState("00:00");
+  const [deliveryAddress, setDeliveryAddress] = useState(
+    CurentUser.adress || ""
+  );
+  const [deliveryContact, setDeliveryContact] = useState(
+    CurentUser.telNumber || ""
+  );
   const [oddAddr, setOddAddr] = useState(false);
   const [oddContact, setOddContact] = useState(false);
   const [customAddress, setCustomAddress] = useState(false);
@@ -21,7 +25,7 @@ function CreateOrder({
   const [isDateEmpty, setIsDateEmpty] = useState(true);
   const [orderSuccessful, setOrderSuccessful] = useState(false);
   const [showValidation, setShowValidation] = useState(false);
-  const [isPhoneValid, setIsPhoneValid] = useState(true)
+  const [isPhoneValid, setIsPhoneValid] = useState(true);
 
   const addressInputRef = useRef(null);
   const contactInputRef = useRef(null);
@@ -47,11 +51,17 @@ function CreateOrder({
     const selectedDate = new Date(e.target.value);
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-    setIsDateEmpty(false)
+    setIsDateEmpty(false);
     setIsDateValid(selectedDate >= today);
   };
 
-  const handleTimeChange = (e) => setDeliveryTime(e.target.value);
+  // const handleTimeChange = (e) => { //обрабатывает изменения времени доставки
+  //   setDeliveryTime(e.target.value);
+  // }
+  const handleTimeChange = (value) => {
+    //обрабатывает изменения времени доставки
+    setDeliveryTime(value);
+  };
 
   const handleAddressChange = (e) => {
     let value = e.target.value;
@@ -69,12 +79,12 @@ function CreateOrder({
       const pattern = /^(\+375)(29|44|33|25)(\d{3})(\d{2})(\d{2})$/;
       return pattern.test(num);
     };
-    setIsPhoneValid(isPhoneNumberValid(deliveryContact))
+    setIsPhoneValid(isPhoneNumberValid(deliveryContact));
     let isContactEmpty = value === "";
     if (customContact) setOddContact(isContactEmpty);
     if (isContactEmpty) setShowValidation(true);
-    if(customContact == false){
-    setCustomContact(value === "other");
+    if (customContact == false) {
+      setCustomContact(value === "other");
     }
   };
 
@@ -91,7 +101,7 @@ function CreateOrder({
     const orderData = {
       userId: CurentUser.id,
       items: itemsIn,
-      total: totalPrice,
+      total: totalPrice.toFixed(2),
       status: "Обрабатывается",
       address: deliveryAddress,
       contact: deliveryContact,
@@ -100,10 +110,15 @@ function CreateOrder({
     };
     console.log(orderData);
     try {
-      const response = await axios.post("http://localhost:5000/order", orderData);
+      const response = await axios.post(
+        "http://localhost:5000/order",
+        orderData
+      );
       console.log("Заказ успешно создан:", response.data);
       await axios.delete(`http://localhost:5000/carts/${productBasket.id}`);
-      const newCart = await axios.get(`http://localhost:5000/carts/getByUserId/${CurentUser.id}`);
+      const newCart = await axios.get(
+        `http://localhost:5000/carts/getByUserId/${CurentUser.id}`
+      );
       console.log("Новая корзина:", newCart.data);
       setProductBasket(newCart.data);
       setOrderSuccessful(true);
@@ -115,6 +130,19 @@ function CreateOrder({
     }
   };
 
+  
+  const hours = Array.from({length: 13}, (_, i) => String(i + 8).padStart(2, '0'));
+  const minutes = ["00", "20", "40"];
+  
+  const handleHoursChange = (event) => {
+    const [_, oldMinutes] = deliveryTime.split(":");
+    setDeliveryTime(`${event.target.value}:${oldMinutes}`);
+  };
+  
+  const handleMinutesChange = (event) => {
+    const [oldHours, _] = deliveryTime.split(":");
+    setDeliveryTime(`${oldHours}:${event.target.value}`);
+  };
   return (
     <div className="order-component">
       <div className="order-details">
@@ -122,7 +150,7 @@ function CreateOrder({
 
         <div className="date-time-section">
           <label htmlFor="order-address">Адресс:</label>
-          {!customAddress  ? (
+          {!customAddress ? (
             <select
               id="order-address"
               value={deliveryAddress}
@@ -162,11 +190,14 @@ function CreateOrder({
             </select>
           ) : (
             <>
-            <InputMask mask="+375 (99) 999-99-99" placeholder="+375 (__) ___-__-__" onChange={handleContactChange}
+              <InputMask
+                mask="+375 (99) 999-99-99"
+                placeholder="+375 (__) ___-__-__"
+                onChange={handleContactChange}
                 type="text"
                 required
-                ref={contactInputRef}>
-            </InputMask>
+                ref={contactInputRef}
+              ></InputMask>
               {/* <input
                 onChange={handleContactChange}
                 type="text"
@@ -175,16 +206,11 @@ function CreateOrder({
               /> */}
               <ValidationTooltip
                 message="Введите контактный телефон."
-                isActive={
-                  deliveryContact === "" || deliveryContact === "other"
-                }
-               
+                isActive={deliveryContact === "" || deliveryContact === "other"}
               />
               <ValidationTooltip
                 message="Номер телефона не соответствует формату."
-                isActive={
-                  isPhoneValid  
-                }
+                isActive={isPhoneValid}
                 targetElement={contactInputRef}
                 position="bottom"
               />
@@ -211,24 +237,33 @@ function CreateOrder({
           />
 
           <label htmlFor="delivery-time">Время доставки:</label>
-          <input
-            type="time"
-            id="delivery-time"
-            step="1800"
-            value={deliveryTime}
-            onChange={handleTimeChange}
-          />
+          <div>
+          <select value={deliveryTime.split(":")[0]} onChange={handleHoursChange}>
+        {hours.map((hour, index) => (
+          <option key={index} value={hour}>
+            {hour}
+          </option>
+        ))}
+      </select>
+      <span>:</span>
+      <select value={deliveryTime.split(":")[1]} onChange={handleMinutesChange}>
+        {minutes.map((minute, index) => (
+          <option key={index} value={minute}>
+            {minute}
+          </option>
+        ))}
+      </select>
+      </div>
         </div>
 
-        <p>Общая стоимость: {totalPrice} руб.</p>
-        <button onClick={handlePlaceOrder} className="place-order-button" >
+        <p>Общая стоимость: {totalPrice.toFixed(2)} BYN</p>
+        <button onClick={handlePlaceOrder} className="place-order-button">
           Оформить заказ
         </button>
         {orderSuccessful && (
           <div className="success-message">Заказ успешно оформлен!</div>
         )}
       </div>
-      
     </div>
   );
 }

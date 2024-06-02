@@ -8,7 +8,8 @@ const VerRev = ({}) => {
   const [products, setProducts] = useState([]);
   const [combinedData, setCombinedData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  
+  const [filterVerified, setFilterVerified] = useState('all');
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -73,7 +74,13 @@ const VerRev = ({}) => {
       console.error("Error delete:", error);
     }
   };
-  
+  const filteredReviews = combinedData.filter((review) => {
+  if (filterVerified === "all") return true; 
+  if (filterVerified === "verified") return review.verified === true;
+  if (filterVerified === "notVerified") return review.verified === false;
+});
+
+
   
 
   
@@ -81,9 +88,20 @@ const VerRev = ({}) => {
     <div className="revCon">
       <h1>Новые отзывы</h1>
      
-        {/* </table> */}
+      <div>
+  <label htmlFor="filter">Фильтр:</label>
+  <select 
+    id="filter" 
+    value={filterVerified} 
+    onChange={(e) => setFilterVerified(e.target.value)}
+  >
+    <option value="all">Все</option>
+    <option value="verified">Одобренные</option>
+    <option value="notVerified">Не одобренные</option>
+  </select>
+</div>
       <div class="scrollableTable"> 
-      {/* <table> */} <table>
+       <table>
         <thead>
           <tr>
             <th>Фото товара</th>
@@ -93,7 +111,7 @@ const VerRev = ({}) => {
           </tr>
         </thead>
         <tbody>
-          {combinedData.map((review) => (
+          {filteredReviews.map((review) => (
             <tr key={review.id}>
               <td>
                 <img src={review.productUrl[0]} alt="Товар" className="prodImg"/>

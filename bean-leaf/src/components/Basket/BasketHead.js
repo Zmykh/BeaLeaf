@@ -3,10 +3,11 @@ import BasketHeadItem from "./BasketHeadItem";
 
 const BasketHead = ({ removeItem, updateQuantity, productBasket, products, showDetailedProduct, setProductBasket}) => {
   const itemsIn = productBasket.items
-  const totalPrice = itemsIn.reduce((total, item) => {
+  const totalPrice = Number((itemsIn.reduce((total, item) => {
     const product = products.find((product) => product.id === item.productId);
     return total + (item.quantity * product.price);
-  }, 0);
+  }, 0)).toFixed(2)); 
+
   console.log(products)
   console.log(itemsIn)
   return (
@@ -22,7 +23,7 @@ const BasketHead = ({ removeItem, updateQuantity, productBasket, products, showD
           })}
           <div className="basketFooter">
           <div className="totalPrice">Итого: {totalPrice} BYN</div>
-          <button>Оплатить</button>
+          <button>К оформлению</button>
           </div>
         </>
       ) : (

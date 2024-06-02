@@ -80,7 +80,7 @@
   position: absolute;
   width: 300px;
   /* height: 400px; */
-  z-index: 99999;
+  z-index: 998;
   background-color:#c1c1c1c3;
 }
 @keyframes fadeInOut {

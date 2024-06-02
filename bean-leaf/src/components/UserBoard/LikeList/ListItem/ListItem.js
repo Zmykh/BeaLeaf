@@ -20,14 +20,14 @@ const ListItem = ({likeList,product, showDetailedProduct , removeItemFromLikeLis
         }}
       ></img>
       <div className="itemDetails">
-        <p>{product.name}</p>
+        <div className="nameAndRemoveButton">
+          <p>{product.name}</p>
+          <div className="removeButton" onClick={handleRemoveClick}>✕</div>
+        </div>
         <div className="quantityAndPrice">
           <p>{product.price} BYN</p>
           <button onClick={showDetailedProductHandler}>К товару</button>
         </div>
-      </div>
-      <div className="removeButton" onClick={handleRemoveClick}>
-        ✕
       </div>
     </div>
   );

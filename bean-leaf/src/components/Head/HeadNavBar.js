@@ -1,5 +1,5 @@
   import styles from "./HeadNavBar.module.css";
-  import React, { useState } from "react";
+  import React, { useState, useEffect } from "react";
   import BasketHead from "../Basket/BasketHead";
   import LikeListHead from "../LikeListHead/LikeListHead";
   import MultiRangeSlider from "./Slider";
@@ -26,21 +26,23 @@
     const [selectedSubcategory, setSelectedSubcategory] = useState(null);
     const [priceSortMethod, setPriceSortMethod] = useState("default");
     const [nameSortMethod, setNameSortMethod] = useState("default");
+    const [selectedOption, setSelectedOption] = useState('price');
+    const [selectedSortMethod, setSelectedSortMethod] = useState('default');
     const [sortSettings, setSortSettings] = useState({
-      priceSortMethod: "default",
-      nameSortMethod: "default",
+      selectedSortMethod: selectedOption,
       selectedCategory: null,
       selectedSubcategory: null,
-      filterRange: { filterRange },
-    });
-
-    const defaultSortSettings = {
-      priceSortMethod: "default",
-      nameSortMethod: "default",
-      selectedCategory: null,
-      selectedSubcategory: null,
-      filterRange: { filterRange },
-    };
+      filterRange: {filterRange},
+      selectedOption: "default"
+   });
+   
+   const defaultSortSettings = {
+     selectedSortMethod: "default",
+     selectedCategory: null,
+     selectedSubcategory: null,
+     filterRange: {filterRange},
+     selectedOption: "default"
+   };
     const userCheckCart = (user) => {
       if (user.id != null) {
         setShowCart(!showUserCart);
@@ -66,7 +68,29 @@
       }
       userCheckLikes(CurentUser);
     };
-
+    const handleSelect = (e) => {
+      const { name, value } = e.target;
+      
+      if (name === "selectedOption") {
+        setSelectedOption(value);
+        setSelectedSortMethod('default');
+        // Обновление sortSettings
+        setSortSettings({...sortSettings, selectedOption: value });
+      } else {
+        setSelectedSortMethod(value);
+        // Обновление sortSettings
+        if (selectedOption === "price") {
+            setSortSettings({...sortSettings, selectedSortMethod: value});
+        }
+        else if (selectedOption === "name") {
+            setSortSettings({...sortSettings, selectedSortMethod: value });
+        }
+        console.log(sortSettings)
+      }
+    };
+    useEffect(() => {
+      console.log(sortSettings);
+    }, [sortSettings]);
     let categories = ["Чай", "Кофе", "Атрибутика"];
     let childCategories = [
       ["Черный", "Зеленый", "Шу Пуэр", "Улун", "Красный", "Белый", "Травяной"],
@@ -109,39 +133,26 @@
           <div className={styles.sort}>
             <div className={styles.column}>
               <label>
-                <select
-                  className={styles["sort-select"]}
-                  value={priceSortMethod}
-                  onChange={(e) => {
-                    const newPriceSortMethod = e.target.value;
-                    setPriceSortMethod(newPriceSortMethod);
-                    setSortSettings({
-                      ...sortSettings,
-                      priceSortMethod: newPriceSortMethod,
-                    });
-                  }}
-                >
-                  <option value="default">Цена</option>
-                  <option value="priceUp">По возрастанию</option>
-                  <option value="priceDown">По убыванию</option>
-                </select>
+              <select className={styles["sort-select"]} name="selectedOption" value={selectedOption} onChange={handleSelect}>
+                <option value="price">Цена</option>
+                <option value="name">Название</option>
+              </select>
               </label>
     
-              <select
-                className={styles["sort-select"]}
-                value={nameSortMethod}
-                onChange={(e) => {
-                  const newNameSortMethod = e.target.value;
-                  setNameSortMethod(newNameSortMethod);
-                  setSortSettings({
-                    ...sortSettings,
-                    nameSortMethod: newNameSortMethod,
-                  });
-                }}
-              >
-                <option value="default">Название</option>
-                <option value="A-z">A-z</option>
-                <option value="Z-a">Z-a</option>
+              <select className={styles["sort-select"]} name="selectedSortMethod" value={selectedSortMethod} onChange={handleSelect}>
+                <option value="default">По умолчанию</option>
+                {selectedOption === "price" ? (
+                    <>
+                      <option value="priceUp">По возрастанию</option>
+                      <option value="priceDown">По убыванию</option>
+                    </>
+                  ) : (
+                    <>
+                      <option value="A-z">A-z</option>
+                      <option value="Z-a">Z-a</option>
+                    </>
+                  )}
+              
               </select>
             </div>
     
@@ -209,7 +220,6 @@
         setSortSettings(defaultSortSettings);
         setSelectedCategory(null);
         setSelectedSubcategory(null);
-        setNameSortMethod("default");
         setPriceSortMethod("default");
         updateDisplayProducts(defaultSortSettings)
       }}>

@@ -1,0 +1,8 @@
+.infoContaier{
+    display: flex;
+    width: 90%;
+    height: 70%;
+}
+.infoContaier div{
+    flex:1;
+}

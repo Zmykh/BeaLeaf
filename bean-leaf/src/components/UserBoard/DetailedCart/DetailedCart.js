@@ -1,7 +1,7 @@
 import React from "react";
 import "./DetailedCart.css";
 import CartItem from "./CartItem/CartItem";
-import axios from "axios";
+
 
 
 const DetailedCart = ({

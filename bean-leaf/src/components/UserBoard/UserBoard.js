@@ -10,6 +10,7 @@ import VerRev from "./Revierws/VerifyRev";
 import CreateOrder from "./DetailedCart/CreateOrder/CreateOrder";
 import Orders from "./Orders/Orders";
 import Users from "./Users/Users";
+import Info from "./Info/Info";
 const UserBoard = ({
   CurentUser,
   updateUser,
@@ -61,6 +62,9 @@ const UserBoard = ({
   }
   const MyOrders = (activeTab) =>{
     return activeTab ==="Мои заказы"
+  }
+  const info = (activeTab) =>{
+    return activeTab ==="Контакты"
   }
   // console.log(allUsers(activeTab))
   console.log(CurentUser)
@@ -122,7 +126,7 @@ const UserBoard = ({
         {orders(activeTab)? <Orders CurentUser = {CurentUser}  forAdmin = {true}/> : null}
         {MyOrders(activeTab)? <Orders CurentUser = {CurentUser}  forAdmin = {false}/> : null}
         {allUsers(activeTab)? <Users/>: null}
-
+        {info(activeTab)?(<Info/>):null}
       </div>
     </div>
   );

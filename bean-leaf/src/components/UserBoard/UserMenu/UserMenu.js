@@ -73,6 +73,12 @@ const UserMenu = ({ activeTab, setActiveTab, CurentUser }) => {
           </div>
           </>
         ) : null}
+        <div
+          className={activeTab === "Контакты" ? "active" : ""}
+          onClick={() => handleTabClick("Контакты")}
+        >
+          Контакты
+        </div>
       </div>
     </div>
   );
